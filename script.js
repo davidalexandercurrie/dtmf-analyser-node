@@ -1,4 +1,10 @@
-navigator.mediaDevices.enumerateDevices().then(val => handleDeviceList(val));
+navigator.mediaDevices
+  .getUserMedia({ video: false, audio: true })
+  .then(stream => {
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(val => handleDeviceList(val));
+  });
 
 function startAudio(deviceIndex) {
   navigator.mediaDevices
