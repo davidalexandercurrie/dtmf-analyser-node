@@ -17,13 +17,13 @@ function startAudio(deviceIndex) {
       analyser.fftSize = 512;
       let dtmfFreqs = [
         [656, 750, 843, 937],
-        [1218, 1312, 1500],
+        [1218, 1312, 1500, 1593],
       ];
       let dtmfValues = [
-        ['1', '2', '3'],
-        ['4', '5', '6'],
-        ['7', '8', '9'],
-        ['*', '0', '#'],
+        ['1', '2', '3', 'A'],
+        ['4', '5', '6', 'B'],
+        ['7', '8', '9', 'C'],
+        ['*', '0', '#', 'D'],
       ];
 
       mic.connect(analyser);
@@ -49,7 +49,7 @@ function startAudio(deviceIndex) {
 
         var f1 = Math.floor((idx * ctx.sampleRate) / analyser.fftSize);
         var f2 = Math.floor((idx2 * ctx.sampleRate) / analyser.fftSize);
-
+        console.log(f1, f2);
         // console.log(dtmfFreqs[0].indexOf(f1));
         // console.log(dtmfFreqs[1].indexOf(f2));
         value = '';
