@@ -1,8 +1,8 @@
-navigator.mediaDevices.enumerateDevices().then(val => printDeviceList(val));
+navigator.mediaDevices.enumerateDevices().then(val => handleDeviceList(val));
 
-function startAudio() {
+function startAudio(deviceIndex) {
   navigator.mediaDevices
-    .getUserMedia({ video: false, audio: true })
+    .getUserMedia({ video: false, audio: { deviceId: { exact: deviceIndex } } })
     .then(stream => {
       var ctx = new AudioContext();
       var mic = ctx.createMediaStreamSource(stream);
@@ -62,11 +62,18 @@ function startAudio() {
       console.log('u got an error:' + err);
     });
 }
-
-function printDeviceList(list) {
+let deviceOptions;
+function handleDeviceList(list) {
+  deviceOptions = list;
   for (let i = 0; i < list.length; i++) {
-    console.log(list[i].label);
-    let listItem = document.createElement('p');
+    let listItem = document.createElement('button');
+    listItem.addEventListener('click', () => {
+      startAudio(list[i].deviceId);
+      document.getElementById(
+        'device-confirmation'
+      ).innerText = `Starting Audio device: ${list[i].label}`;
+      document.getElementById('device-list').hidden = true;
+    });
     let text = document.createTextNode(list[i].label);
     listItem.appendChild(text);
     document.getElementById('device-list').appendChild(listItem);
