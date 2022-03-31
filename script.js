@@ -16,8 +16,8 @@ function startAudio(deviceIndex) {
       analyser.threshold = 128;
       analyser.fftSize = 512;
       let dtmfFreqs = [
-        [656, 750, 843, 937],
-        [1218, 1312, 1500, 1593],
+        [689, 775, 861, 947],
+        [1205, 1291, 1464, 1636],
       ];
       let dtmfValues = [
         ['1', '2', '3', 'A'],
@@ -68,6 +68,7 @@ function startAudio(deviceIndex) {
       console.log('u got an error:' + err);
     });
 }
+
 let deviceOptions;
 function handleDeviceList(list) {
   deviceOptions = list;
